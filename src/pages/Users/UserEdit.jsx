@@ -10,7 +10,8 @@ const UserEdit = () => {
     name: '',
     email: '',
     role: 'user',
-    isActive: true
+    isActive: true,
+    balance: 0
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -28,7 +29,8 @@ const UserEdit = () => {
         name: user.name || '',
         email: user.email || '',
         role: user.role || 'user',
-        isActive: user.isActive !== undefined ? user.isActive : true
+        isActive: user.isActive !== undefined ? user.isActive : true,
+        balance: user.balance || 0
       });
     } catch (error) {
       console.error('Error fetching user:', error);
@@ -145,6 +147,19 @@ const UserEdit = () => {
               <option value="admin">Admin</option>
             </select>
           </div>
+
+          <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Balance (₦)
+          </label>
+          <input
+            type="number"
+            value={formData.balance}
+            onChange={(e) => setFormData({...formData, balance: parseInt(e.target.value) || 0})}
+            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-[#C9A84C]"
+            min="0"
+          />
+        </div>
 
           {/* Active Status */}
           <div>

@@ -125,6 +125,7 @@ const UserList = () => {
               <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Email</th>
               <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Role</th>
               <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
+              <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Balance</th>
               <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Joined</th>
               <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Actions</th>
             </tr>
@@ -187,6 +188,7 @@ const UserList = () => {
                       {user.isActive ? 'Active' : 'Inactive'}
                     </button>
                   </td>
+                  <td className="px-6 py-4 text-sm">₦{user.balance?.toLocaleString() || 0}</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <Calendar size={14} />

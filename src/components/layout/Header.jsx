@@ -5,10 +5,10 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
 
   return (
-    <header className="fixed top-0 right-0 left-0 bg-white border-b border-gray-200 z-30 h-16">
-      <div className={`flex items-center justify-between h-full px-6 transition-all duration-300 ${
-        sidebarOpen ? 'lg:ml-64' : ''
-      }`}>
+    <header className={`fixed top-0 right-0 z-30 h-16 bg-white border-b border-gray-200 transition-all duration-300 ${
+      sidebarOpen ? 'lg:left-64' : 'lg:left-20'
+    } left-0`}>
+      <div className="flex items-center justify-between h-full px-6">
         {/* Left side */}
         <div className="flex items-center gap-4">
           <button

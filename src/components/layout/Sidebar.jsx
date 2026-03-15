@@ -42,9 +42,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 z-50 h-screen bg-gray-900 text-white transition-all duration-300 ${
-        sidebarOpen ? 'w-64' : 'w-20'
-      }`}>
+      <aside
+        className={`fixed top-0 left-0 z-50 h-screen bg-gray-900 text-white transition-all duration-300
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0
+        ${sidebarOpen ? 'lg:w-64' : 'lg:w-20'}
+        w-64`}
+      >
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-4 border-b border-white/10">
           <div className="flex items-center gap-2">

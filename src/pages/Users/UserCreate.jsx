@@ -9,7 +9,8 @@ const UserCreate = () => {
     email: '',
     password: '',
     role: 'user',
-    isActive: true
+    isActive: true,
+    balance: 0 
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -121,6 +122,20 @@ const UserCreate = () => {
             {errors.password && (
               <p className="mt-1 text-xs text-red-500">{errors.password}</p>
             )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Initial Balance (₦)
+            </label>
+            <input
+              type="number"
+              value={formData.balance}
+              onChange={(e) => setFormData({...formData, balance: parseInt(e.target.value) || 0})}
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-[#C9A84C]"
+              placeholder="0"
+              min="0"
+            />
           </div>
 
           {/* Role */}
