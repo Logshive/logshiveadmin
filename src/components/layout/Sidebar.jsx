@@ -17,8 +17,8 @@ import {
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const menuItems = [
     { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
-    { path: '/accounts', icon: Package, label: 'Accounts', badge: 'CRUD' },
-    { path: '/users', icon: Users, label: 'Users', badge: 'CRUD' },
+    { path: '/accounts', icon: Package, label: 'Accounts'},
+    { path: '/users', icon: Users, label: 'Users' },
     { path: '/orders', icon: ShoppingBag, label: 'Orders' },
     { path: '/messages', icon: MessageCircle, label: 'Messages' },
     { path: '/analytics', icon: BarChart3, label: 'Analytics' },
