@@ -36,12 +36,26 @@ const Settings = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setSettings(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
+  const { name, value, type, checked } = e.target;
+  const newValue = type === 'checkbox' ? checked : value;
+
+  // Support nested fields like "payment.korapaySecretKey"
+  if (name.includes('.')) {
+    const keys = name.split('.');
+    setSettings(prev => {
+      const updated = { ...prev };
+      let current = updated;
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) current[keys[i]] = {};
+        current = current[keys[i]];
+      }
+      current[keys[keys.length - 1]] = newValue;
+      return updated;
+    });
+  } else {
+    setSettings(prev => ({ ...prev, [name]: newValue }));
+  }
+};
 
   const handleSave = async () => {
     setSaving(true);
@@ -260,41 +274,41 @@ const Settings = () => {
           )}
 
           {activeTab === 'payment' && (
-            <div className="space-y-6">
-              <h3 className="text-lg font-serif font-bold mb-4">Payment Settings (Paystack)</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Public Key
-                  </label>
-                  <input
-                    type="text"
-                    name="paystackPublicKey"
-                    value={settings.paystackPublicKey || ''}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                    placeholder="pk_test_..."
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Secret Key
-                  </label>
-                  <input
-                    type="password"
-                    name="paystackSecretKey"
-                    value={settings.paystackSecretKey || ''}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                    placeholder="sk_test_..."
-                  />
-                </div>
-                <p className="text-xs text-gray-500">
-                  You can find your API keys in your Paystack dashboard.
-                </p>
-              </div>
-            </div>
-          )}
+  <div className="space-y-6">
+    <h3 className="text-lg font-serif font-bold mb-4">Payment Settings (Korapay)</h3>
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Korapay Public Key
+        </label>
+        <input
+          type="text"
+          name="payment.korapayPublicKey"
+          value={settings.payment?.korapayPublicKey || ''}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+          placeholder="pk_test_..."
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Korapay Secret Key
+        </label>
+        <input
+          type="password"
+          name="payment.korapaySecretKey"
+          value={settings.payment?.korapaySecretKey || ''}
+          onChange={handleChange}
+          className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+          placeholder="sk_test_..."
+        />
+      </div>
+      <p className="text-xs text-gray-500">
+        You can find your API keys in your Korapay dashboard.
+      </p>
+    </div>
+  </div>
+)}
 
           {activeTab === 'email' && (
             <div className="space-y-6">
